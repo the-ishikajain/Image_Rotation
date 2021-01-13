@@ -1,27 +1,7 @@
-#include<opencv2/opencv.hpp>
-#include <iostream>
+Image Rotation using OPEN-CV
 
-using namespace cv;
-using namespace std;
+OPEN-CV:- It is a library of programming functions mainly aimed at real-timed computer vision. This library is cross-platform and free for user under the open-source Apache 2 License.
 
-int main()
-{
-	Mat img = imread("C:/Users/ASUS/Pictures/Saved Pictures/justice.png", IMREAD_UNCHANGED);
-	double angle;
-	cin >> angle;
-	Point2f center((img.cols -1) / 2.0, (img.rows -1) / 2.0);
-	Mat rot = getRotationMatrix2D(center, angle, 1.0);
-	Rect2f bbox = RotatedRect(Point2f(), img.size(), angle).boundingRect2f();
-	rot.at<double>(0, 2) += bbox.width / 2.0 - img.cols / 2.0;
-	rot.at<double>(1, 2) += bbox.height / 2.0 - img.rows / 2.0;
-	
-	Mat M;
-	warpAffine(img, M, rot, bbox.size());
-	imwrite("rotated_image.png", M);
-	string windowName = "Rotated Image";
-	namedWindow(windowName, WINDOW_NORMAL);
-	imshow(windowName, M);
-	waitKey(0);
-	destroyWindow(windowName);
-	return 0;
-}
+With the help of OPEN-CV, image is rotated. .rotate() is used to rotate the image. Firstly, we will find the center of the original image and using that center points, we will fit that image in a rectangle. We will rotate this rectangle as thus the image will get rotate at a particular angle.
+
+warpAffine() function is also used to get a proper sized image as output.
